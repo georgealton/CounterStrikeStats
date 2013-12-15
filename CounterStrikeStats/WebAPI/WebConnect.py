@@ -46,7 +46,6 @@ class WebAPICaller(object):
                 raise ValueError("Unknown HTTP Method " + str(httpmethod))
            
             response = connection.getresponse().read()
-            return response 
             
         except Exception as e : 
             raise e
