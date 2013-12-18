@@ -23,7 +23,7 @@ class Connector(object):
         self.host = host
         self.db = db
         
-        self.connection = "Connection"
+        self.connection = None
         
     
     @property

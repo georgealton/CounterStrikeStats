@@ -37,15 +37,22 @@ class WXFrame(wx.Frame):
         
         self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
         
-        
+        #EVENT Handling
         self.Bind(wx.EVT_MENU, self.onAbout, menuAbout)
         self.Bind(wx.EVT_MENU, self.onExit, menuExit)
         self.Bind(wx.EVT_MENU, self.onSettings, menuSettings)        
         self.Bind(wx.EVT_MENU, self.onToggleStatusBar, self.toggle_statusbar)
+        
+        
+        
         self.Show(True)
         
         
-        
+    def open_connect(self, e):
+        pass
+    def close_connect(self, e):
+        pass
+    
     def onAbout(self,e):
         print self
     

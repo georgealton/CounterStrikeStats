@@ -3,6 +3,7 @@ Created on 10 Dec 2013
 
 @author: george
 '''
+import MySQLdb
 try : 
     from HLModule import Players
     from MainFrame import WXFrame
@@ -17,12 +18,10 @@ if __name__ == '__main__':
     
     try : 
         app = wx.App(False)
-        
         frame = WXFrame(None,"CounterStrike Stats")
-        
         panel = wx.Panel(frame)
-        
-        grid = gridlib.Grid(panel)    
+        grid = gridlib.Grid(panel)  
+          
     except Exception as e  :
         print(e)
     
@@ -30,7 +29,7 @@ if __name__ == '__main__':
         p = Players()
 
         extractKeys = ['lastName', 'kills', 'deaths']
-        
+
         grid.CreateGrid(len(p.all), len(extractKeys))
         i=0
         for row in p.all:
@@ -59,6 +58,6 @@ if __name__ == '__main__':
 
 
         app.MainLoop()
-        
+    
     except Exception as e:
         print e
