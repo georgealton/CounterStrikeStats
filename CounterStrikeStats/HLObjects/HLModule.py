@@ -19,6 +19,8 @@ class HLStatsDB(object):
         '''
         Constructor
         '''
+        
+
     @property
     def tablename(self):
         return self._tablename 
@@ -43,24 +45,47 @@ class Players(HLStatsDB):
         # we move 
         self.all = self.cursor.fetchall()
         self.cursor.close() 
-        for p in self.all :
-            self.list.append([Player(
-                                     name = p['lastName'],
-                                     playerid = p['playerId'],
-                                     kills  = p['kills'],
-                                     deaths = p['deaths']
-                                     
-                                     )
-                              ]
-                             )
+        for players in self.all :
+            if players['hideranking'] != 1 : # filters out Bots as defined by hlstats
+                self.list.append(Player(
+                                         name = players['lastName'],
+                                         playerid = players['playerId'],
+                                         kills  = players['kills'],
+                                         deaths = players['deaths'],
+                                         skill = players['skill']
+                                         )
+                                 )
         
             
 
 class Player(HLStatsDB):
     _tablename = "hlstats_Players"
     
-    def __init__(self, name="", playerid="", kills=0, deaths=0):
+    def __init__(self, name="", playerid="", skill=0, kills=0, deaths=0):
         self.name = name
         self.playerid = playerid
         self.kills = kills
         self.deaths = deaths
+        self.skill = skill
+        
+    def __gt__(self, other):
+        if isinstance(other, Player):
+            return self.skill > other.skill
+        else : 
+            return False
+    
+    def __lt__(self, other):
+        if isinstance(other, Player):
+            return self.skill < other.skill
+        else : 
+            return False 
+    
+    def __str__(self):
+        return self.name + " [" + str(self.skill) + "]"
+    
+        
+class Weapon(HLStatsDB):
+    _tablename = "hlstats_Weapons"
+    
+    def __init__(self):
+        pass

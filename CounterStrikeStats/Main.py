@@ -26,17 +26,21 @@ if __name__ == '__main__':
         print(e)
     
     try : 
-        p = Players()
+        players = Players()
 
-        extractKeys = ['lastName', 'kills', 'deaths']
-
-        grid.CreateGrid(len(p.all), len(extractKeys))
-        i=0
-        for row in p.all:
-            for u in range(len(extractKeys)):
-                grid.SetCellValue(i, u, str(row[extractKeys[u]]))
-                grid.SetReadOnly(i, u, True)
-            i+=1
+        playerattrs = ['name', 'kills', 'deaths']
+        
+        columns = len(playerattrs)
+        rows = len(players.list)
+        
+        grid.CreateGrid(rows, columns)
+        row=0
+        for player in players.list:
+            for v in playerattrs:
+                column = playerattrs.index(v)
+                grid.SetCellValue(row, column, str(getattr(player, v)))
+                grid.SetReadOnly(row, column, True)
+            row+=1
            
         def showJustGrid(grid):
             grid.DisableDragColSize()
