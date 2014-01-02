@@ -23,9 +23,34 @@ class HLStatsDB(object):
 
     @property
     def tablename(self):
-        return self._tablename 
+        return self._tablename
 
-class Players(HLStatsDB):
+    
+class HLStatsEntity(HLStatsDB):
+    '''
+    Fetches basic object relevant data from the database
+    '''
+    
+    def __init__(self, tablename=""):
+        '''
+        Constructor
+        '''
+        if tablename == "":
+            raise ValueError("Table argument required")
+        
+        try:
+            self.cursor.execute("SELECT * FROM " + self.tablename)
+        except Exception as e:
+            raise e
+        
+        # TODO instead of doing a fetchall we need to make this do a fetchone 
+        # and add individually because, fetchall could take a long time, especially if 
+        # we move 
+        self.dataset = self.cursor.fetchall()
+        self.cursor.close() 
+        
+
+class Players(HLStatsEntity):
     '''
     classdocs
     '''
@@ -38,14 +63,10 @@ class Players(HLStatsDB):
         '''
         self.list = [] # Holds list of Player Objects
         
-        self.cursor.execute("SELECT * FROM " + self.tablename)
+        #Call parent constructor, which fetches the relevant table dataset
+        HLStatsEntity.__init__(self, self._tablename)
         
-        # TODO instead of doing a fetchall we need to make this do a fetchone 
-        # and add individually because, fetchall could take a long time, especially if 
-        # we move 
-        self.all = self.cursor.fetchall()
-        self.cursor.close() 
-        for players in self.all :
+        for players in self.dataset :
             if players['hideranking'] != 1 : # filters out Bots as defined by hlstats
                 self.list.append(Player(
                                          name = players['lastName'],
@@ -92,8 +113,13 @@ class Weapons(HLStatsDB):
     _tablename = "hlstats_Weapons"
     
     def __init__(self):
-        pass
-
+        '''
+        Constructor
+        '''
+        self.list = [] # Holds list of Player Objects
+        
+        #Call parent constructor, which fetches the relevant table dataset
+        HLStatsEntity.__init__(self, self._tablename)
 
 
 class Weapon(HLStatsDB):
