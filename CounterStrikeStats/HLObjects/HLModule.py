@@ -83,9 +83,46 @@ class Player(HLStatsDB):
     def __str__(self):
         return self.name + " [" + str(self.skill) + "]"
     
-        
-class Weapon(HLStatsDB):
+
+class Weapons(HLStatsDB):
+    '''
+    Weapons, contains the individual Weapon objects
+    '''
+    
     _tablename = "hlstats_Weapons"
     
     def __init__(self):
         pass
+
+
+
+class Weapon(HLStatsDB):
+    '''
+    Weapon, e.g. an AK47 and associated statistics
+    
+    Args: Weapon Name, Point Modifier, Weapon Kills and Weapon Headshot's
+    '''
+    
+    _tablename = "hlstats_Weapons"
+    
+    def __init__(self, name="", modifier=0, kills=0, headshots=0):
+        self.name = name
+        self.modifier = modifier
+        self.kills = kills
+        self.headshots = headshots
+        
+    def __gt__(self, other):
+        if isinstance(other, Weapon):
+            return self.kills > other.kills
+        else :
+            return False
+        
+    def __lt__(self, other):
+        if isinstance(other, Weapon):
+            return self.kills < other.kills
+        else :
+            return False
+        
+    def __str__(self):
+        return self.name + ", Kills: " + str(self.kills)
+        
