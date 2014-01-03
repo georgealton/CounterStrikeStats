@@ -36,10 +36,13 @@ result = session.query(players).all()
 
 s = players.select(players.c.hideranking != 1)
 result = s.execute()
-print result
 
 for row in result:
-    print row
+    print row.lastName
+    
+    
+    
+
 #print s
 
 #for row in result:
