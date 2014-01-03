@@ -61,10 +61,10 @@ class Players(HLStatsEntity):
         '''
         Constructor
         '''
-        self.list = [] # Holds list of Player Objects
-        
         #Call parent constructor, which fetches the relevant table dataset
         HLStatsEntity.__init__(self, self._tablename)
+        
+        self.list = [] # Holds list of Player Objects
         
         for players in self.dataset :
             if players['hideranking'] != 1 : # filters out Bots as defined by hlstats
@@ -116,10 +116,10 @@ class Weapons(HLStatsDB):
         '''
         Constructor
         '''
-        self.list = [] # Holds list of Player Objects
-        
         #Call parent constructor, which fetches the relevant table dataset
         HLStatsEntity.__init__(self, self._tablename)
+        
+        self.list = [] # Holds list of Player Objects
 
 
 class Weapon(HLStatsDB):
