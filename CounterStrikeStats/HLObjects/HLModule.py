@@ -25,7 +25,7 @@ class HLStatsDB(object):
     def tablename(self):
         return self._tablename
 
-#test 1
+#test 2
 class HLStatsEntity(HLStatsDB):
     '''
     Fetches basic object relevant data from the database
