@@ -65,10 +65,10 @@ class Weapon(Base):
     
     
 
-#print s
+print s
 
-#for row in result:
-#    print str(row)
+for row in result:
+    print str(row)
 #row = query.all()
 
 #print "Row" + str(row)
