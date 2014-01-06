@@ -7,8 +7,8 @@ Created on 02 Jan 13
 
 
 #SQL alchemy
-from sqlalchemy import create_engine, MetaData, Table
-from sqlalchemy.orm import mapper, sessionmaker
+from sqlalchemy import create_engine, MetaData, Table, ForeignKey
+from sqlalchemy.orm import mapper, sessionmaker, relationship
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column
 from sqlalchemy.types import *
@@ -42,33 +42,96 @@ except Exception as e:
 
 
 # Try some stuff
-players = Table('hlstats_Players', metadata, autoload=True)
-result = session.query(players).all()
+#players = Table('hlstats_Players', metadata, autoload=True)
+#result = session.query(players).all()
 
-s = players.select(players.c.hideranking != 1)
-result = s.execute()
+#s = players.select(players.c.hideranking != 1)
+#result = s.execute()
 
-for row in result:
-    print row.lastName
+#for row in result:
+#    print row.lastName
 
 class Player(Base):
-    __tablename__ = 'hlstats_Player'
+    __tablename__ = 'hlstats_Players'
     
-    id = Column(Integer, primary_key=True)
+    playerid = Column(Integer, primary_key=True)
+    last_event = Column(Integer)
+    connection_time = Column(Integer)
+    lastName = Column(String)
+    lastAddress = Column(String)
+    city = Column(String)
+    state = Column(String)
+    country = Column(String)
+    flag = Column(String)
+    lat = Column(Float)
+    lng = Column(Float)
+    clan = Column(String, ForeignKey('hlstats_Clans.clanId'))
+    kills = Column(Integer)
+    deaths = Column(Integer)
+    suicides = Column(Integer)
+    skill = Column(Integer)
+    shots = Column(Integer)
+    hits = Column(Integer)
+    teamKills = Column(Integer)
+    fullName = Column(String)
+    email = Column(String)
+    homepage = Column(String)
+    icq = Column(Integer)
+    game = Column(String, ForeignKey('hlstats_Games.code'))
+    hideranking = Column(Integer)
+    headshots = Column(Integer)
+    last_skill_change = Column(Integer)
+    displayEvents = Column(Integer)
+    kill_streak = Column(Integer)
+    death_streak = Column(Integer)
+    blockavatar = Column(Integer)
+    activity = Column(Integer)
+    createdate = Column(Integer)
+    
+    plays = relationship("Game", backref="hlstats_Players")
     
 
 class Weapon(Base):
     __tablename__ = "hlstats_Weapons"
     
-    id = Column(Integer, primary_key=True)
+    weaponId = Column(Integer, primary_key=True)
+    game = Column(String, ForeignKey('hlstats_Games.code'))
+    code = Column(String)
+    name = Column(String)
+    modifier = Column(Float)
+    kills = Column(Integer)
+    headshots = Column(Integer)
+
+
+class Game(Base):
+    __tablename__ = "hlstats_Games"
     
+    code = Column(String, primary_key=True)
+    name = Column(String)
+    hidden = Column(Enum)
+    realgame = Column(String)
+
+class Award(Base):
+    __tablename__ = "hlstats_Players_Awards"
     
+    awardId = Column(Integer, primary_key=True)
+    awardType = Column(String) ##not sure what this is
+    game = Column(String, ForeignKey('hlstats_Games.code'))
+    name = Column(String)
+    verb = Column(String)
+    d_winner_id = Column(Integer)
+    d_winner_count = Column(Integer)
+    g_winner_id = Column(Integer)
+    g_winner_count = Column(Integer)
     
 
-print s
 
-for row in result:
-    print str(row)
+x = session.query(Player.lastName).all()
+print x
+#print s
+
+#for row in result:
+#    print str(row)
 #row = query.all()
 
 #print "Row" + str(row)
