@@ -81,6 +81,9 @@ class Player(Base):
     
     plays = relationship("Game", backref="hlstats_Players")
     
+    def __repr__(self):
+        return str(self.lastName)
+    
 
 class Weapon(Base):
     __tablename__ = "hlstats_Weapons"
@@ -92,7 +95,9 @@ class Weapon(Base):
     modifier = Column(Float)
     kills = Column(Integer)
     headshots = Column(Integer)
-
+    
+    def __repr__(self):
+        return str(self.name)
 
 class Game(Base):
     __tablename__ = "hlstats_Games"
@@ -101,12 +106,15 @@ class Game(Base):
     name = Column(String)
     hidden = Column(Enum)
     realgame = Column(String)
+    
+    def __repr__(self):
+        return str(self.name)
 
 class Award(Base):
     __tablename__ = "hlstats_Players_Awards"
     
     awardId = Column(Integer, primary_key=True)
-    awardType = Column(String) ##not sure what this is
+    awardType = Column(String) ##not sure what this is 
     game = Column(String, ForeignKey('hlstats_Games.code'))
     name = Column(String)
     verb = Column(String)
@@ -115,12 +123,19 @@ class Award(Base):
     g_winner_id = Column(Integer)
     g_winner_count = Column(Integer)
     
+    def __repr__(self):
+        return str(self.name)
+    
 #class Clan(Base):
 #    __tablename__ = ""
 
-
 #class Map(Base):
 #    __tablename__ = ""
+
+#class Event(Base):
+#     __tablename__ = ""
+
+
 
 if test == True:
     x = session.query(Player.lastName).all()
