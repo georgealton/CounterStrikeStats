@@ -20,13 +20,13 @@ try:
             )
     
     engine.echo = True # Display the executed SQL
-    
     metadata = MetaData(engine) #A table catalogue
-    
     #Need a session
     Session = sessionmaker(bind=engine)
     session = Session()
-    
+ 
+ 
+   
 #http://docs.sqlalchemy.org/en/rel_0_9/orm/tutorial.html#declare-a-mapping
 #   
 # Classes mapped using the Declarative system are defined in terms of a 
@@ -39,17 +39,6 @@ try:
 except Exception as e:
     raise e
 
-
-
-# Try some stuff
-#players = Table('hlstats_Players', metadata, autoload=True)
-#result = session.query(players).all()
-
-#s = players.select(players.c.hideranking != 1)
-#result = s.execute()
-
-#for row in result:
-#    print row.lastName
 
 class Player(Base):
     __tablename__ = 'hlstats_Players'
@@ -128,10 +117,3 @@ class Award(Base):
 
 x = session.query(Player.lastName).all()
 print x
-#print s
-
-#for row in result:
-#    print str(row)
-#row = query.all()
-
-#print "Row" + str(row)
