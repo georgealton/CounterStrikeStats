@@ -13,6 +13,8 @@ from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column
 from sqlalchemy.types import *
 
+test = True
+
 try:
     engine = create_engine(
                 "mysql://root:pharos1@10.97.158.244/cs-stats",
@@ -113,7 +115,13 @@ class Award(Base):
     g_winner_id = Column(Integer)
     g_winner_count = Column(Integer)
     
+#class Clan(Base):
+#    __tablename__ = ""
 
 
-x = session.query(Player.lastName).all()
-print x
+#class Map(Base):
+#    __tablename__ = ""
+
+if test == True:
+    x = session.query(Player.lastName).all()
+    print x
