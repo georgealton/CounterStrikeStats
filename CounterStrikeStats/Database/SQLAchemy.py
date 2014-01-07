@@ -99,6 +99,7 @@ class Weapon(Base):
     def __repr__(self):
         return str(self.name)
 
+
 class Game(Base):
     __tablename__ = "hlstats_Games"
     
@@ -110,8 +111,9 @@ class Game(Base):
     def __repr__(self):
         return str(self.name)
 
+
 class Award(Base):
-    __tablename__ = "hlstats_Players_Awards"
+    __tablename__ = "hlstats_Awards"
     
     awardId = Column(Integer, primary_key=True)
     awardType = Column(String) ##not sure what this is 
@@ -125,18 +127,53 @@ class Award(Base):
     
     def __repr__(self):
         return str(self.name)
+
     
-#class Clan(Base):
-#    __tablename__ = ""
+class Clan(Base):
+    __tablename__ = "hlstats_Clans"
+    
+    clanId = Column(Integer, primary_key=True)
+    tag = Column(String)
+    name = Column(String)
+    homepage = Column(String)
+    game = Column(String, ForeignKey('hlstats_Games.code'))
 
-#class Map(Base):
-#    __tablename__ = ""
-
-#class Event(Base):
-#     __tablename__ = ""
+    def __repr__(self):
+        return str(self.tag + ' ' + self.name)
 
 
+class Ribbon(Base):
+    __tablename__ = "hlstats_Ribbons"
+    
+    ribbonId = Column(Integer, primary_key=True)
+    awardCode = Column(String)
+    awardCount = Column(String)
+    special = Column(Integer)
+    game = Column(String, ForeignKey('hlstats_Games.code'))
+    image = Column(String)
+    ribbonName = Column(String)
+    
+    def __repr__(self):
+        return str(self.ribbonName)
 
+
+class Action(Base):
+    __tablename__ = "hlstats_Actions"
+    
+    id = Column(Integer, primary_key=True)
+    game = Column(String, ForeignKey('hlstats_Games.code'))
+    code = Column(String)
+    reward_player = Column(Integer) ## amount of skillchange
+    reward_team = Column(Integer) ## amount of skillchange
+    team = Column(String)
+    description = Column(String)
+    count = Column(Integer)
+    
+    def __repr__(self):
+        return str(self.description)
+    
+
+    
 if test == True:
     x = session.query(Player.lastName).all()
     print x
