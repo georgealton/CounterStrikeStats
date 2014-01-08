@@ -5,6 +5,8 @@ Created on 10 Dec 2013
 '''
 try : 
     import MySQLdb
+    from dbsettings import *
+
 except ImportError as ie:
     raise ie
 

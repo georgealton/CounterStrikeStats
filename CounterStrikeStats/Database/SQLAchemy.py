@@ -12,12 +12,13 @@ from sqlalchemy.orm import mapper, sessionmaker, relationship
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column
 from sqlalchemy.types import *
+from dbsettings import *
 
 test = True
 
 try:
     engine = create_engine(
-                "mysql://root:pharos1@10.97.158.244/cs-stats",
+                "mysql://" + DB_USER + ":" + DB_PASS + '@' + DB_URL,
                 isolation_level="READ UNCOMMITTED"
             )
     
