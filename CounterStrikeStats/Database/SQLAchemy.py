@@ -21,7 +21,7 @@ try:
                 isolation_level="READ UNCOMMITTED"
             )
     
-    engine.echo = True # Display the executed SQL
+    #engine.echo = True # Display the executed SQL
     metadata = MetaData(engine) #A table catalogue
     #Need a session
     Session = sessionmaker(bind=engine)
@@ -80,6 +80,8 @@ class Player(Base):
     createdate = Column(Integer)
     
     plays = relationship("Game", backref="hlstats_Players")
+    
+    player_clan  = relationship("Clan")
     
     def __repr__(self):
         return str(self.lastName)
@@ -175,5 +177,7 @@ class Action(Base):
 
     
 if test == True:
-    x = session.query(Player.lastName).all()
-    print x
+    players = session.query(Player).all()
+    for player in players :
+        if player.player_clan is not None :
+            print (str(player.lastName) + " : " + str(player.player_clan))
