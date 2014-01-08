@@ -42,10 +42,16 @@ except Exception as e:
     raise e
 
 
+#contains the link table between players and ribbons
+player_ribbon_assoction = Table('hlstats_Players_Ribbons', 
+                                Base.metadata, 
+                                Column('playerId', Integer, ForeignKey('hlstats_Players.playerId')),
+                                Column('ribbonId', Integer, ForeignKey('hlstats_Ribbons.ribbonId')))
+
 class Player(Base):
     __tablename__ = 'hlstats_Players'
     
-    playerid = Column(Integer, primary_key=True)
+    playerId = Column(Integer, primary_key=True)
     last_event = Column(Integer)
     connection_time = Column(Integer)
     lastName = Column(String)
@@ -79,9 +85,9 @@ class Player(Base):
     activity = Column(Integer)
     createdate = Column(Integer)
     
-    plays = relationship("Game", backref="hlstats_Players")
-    
-    player_clan  = relationship("Clan")
+    player_game = relationship("Game", backref="hlstats_Players")
+    player_clan  = relationship("Clan", backref="hlstats_Players")
+    player_ribbons = relationship("Ribbon",secondary=player_ribbon_assoction, backref="players")
     
     def __repr__(self):
         return str(self.lastName)
@@ -97,6 +103,8 @@ class Weapon(Base):
     modifier = Column(Float)
     kills = Column(Integer)
     headshots = Column(Integer)
+    
+    relationship("Game", backref="hlstats_Weapons")
     
     def __repr__(self):
         return str(self.name)
@@ -127,6 +135,8 @@ class Award(Base):
     g_winner_id = Column(Integer)
     g_winner_count = Column(Integer)
     
+    relationship("Game", backref="hlstats_Awards")
+    
     def __repr__(self):
         return str(self.name)
 
@@ -139,7 +149,9 @@ class Clan(Base):
     name = Column(String)
     homepage = Column(String)
     game = Column(String, ForeignKey('hlstats_Games.code'))
-
+    
+    relationship("Game", backref="hlstats_Clans")
+    
     def __repr__(self):
         return str(self.tag + ' ' + self.name)
 
@@ -154,6 +166,8 @@ class Ribbon(Base):
     game = Column(String, ForeignKey('hlstats_Games.code'))
     image = Column(String)
     ribbonName = Column(String)
+    
+    relationship("Game", backref="hlstats_Ribbons")
     
     def __repr__(self):
         return str(self.ribbonName)
@@ -171,13 +185,18 @@ class Action(Base):
     description = Column(String)
     count = Column(Integer)
     
+    relationship("Game", backref="hlstats_Actions")
+    
     def __repr__(self):
         return str(self.description)
     
+
+
+
 
     
 if test == True:
     players = session.query(Player).all()
     for player in players :
         if player.player_clan is not None :
-            print (str(player.lastName) + " : " + str(player.player_clan))
+            print (str(player.lastName) + " : " + str(player.player_ribbons))
