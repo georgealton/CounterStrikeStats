@@ -8,10 +8,10 @@ Created on 02 Jan 13
 
 #SQL alchemy
 from sqlalchemy import create_engine, MetaData, Table, ForeignKey
-from sqlalchemy.orm import mapper, sessionmaker, relationship
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column
-from sqlalchemy.types import *
+from sqlalchemy.types import Integer, String, Enum, Float
 from dbsettings import *
 
 try:
@@ -141,7 +141,7 @@ class Game(Base):
     
     code = Column(String, primary_key=True)
     name = Column(String)
-    hidden = Column(Enum)
+    hidden = Column(Enum([0,1]))
     realgame = Column(String)
     
     def __repr__(self):
