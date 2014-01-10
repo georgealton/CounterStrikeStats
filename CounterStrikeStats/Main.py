@@ -3,34 +3,33 @@ Created on 10 Dec 2013
 
 @author: george
 '''
-import MySQLdb
 try : 
     from MainFrame import WXFrame
     from SQLAchemy import Player
     import wx
     import wx.grid as gridlib
-
-except Exception as e : 
-    print e
+except ImportError as e : 
+    raise e
 
 if __name__ == '__main__':
     
     try : 
         app = wx.App(False)
-        frame = WXFrame(None,"CounterStrike Stats")
-        panel = wx.Panel(frame)
-        grid = gridlib.Grid(panel)  
+ 
           
     except Exception as e  :
         print(e)
     
     try : 
         players = Player().getAll()
-        print(players)
         playerattrs = ['lastName', 'kills', 'deaths']
         
         columns = len(playerattrs)
         rows = len(players)
+        
+        frame = WXFrame(None,"CounterStrike Stats")
+        panel = wx.Panel(frame)
+        grid = gridlib.Grid(panel) 
         
         grid.CreateGrid(rows, columns)
         row=0
