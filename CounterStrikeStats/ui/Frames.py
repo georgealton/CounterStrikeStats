@@ -4,7 +4,8 @@ Created on 14 Dec 2013
 @author: george
 '''
 import wx 
-import Grid
+import Grids
+import Panels
 
 class WXFrame(wx.Frame):
 
