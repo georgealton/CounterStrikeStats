@@ -5,8 +5,8 @@ Created on 10 Dec 2013
 '''
 import MySQLdb
 try : 
-    from HLModule import Players
     from MainFrame import WXFrame
+    from SQLAchemy import *
     import wx
     import wx.grid as gridlib
 
@@ -25,8 +25,8 @@ if __name__ == '__main__':
         print(e)
     
     try : 
-        players = Players()
-
+        players = Player().getAll()
+        print(players)
         playerattrs = ['name', 'kills', 'deaths']
         
         columns = len(playerattrs)

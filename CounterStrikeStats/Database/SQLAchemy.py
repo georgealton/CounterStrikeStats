@@ -14,8 +14,6 @@ from sqlalchemy.schema import Column
 from sqlalchemy.types import *
 from dbsettings import *
 
-test = True
-
 try:
     engine = create_engine(
                 "mysql://" + DB_USER + ":" + DB_PASS + '@' + DB_URL,
@@ -43,13 +41,19 @@ except Exception as e:
     raise e
 
 
+class getAllMixin(object):
+    def getAll(self):
+        print(self)
+        return session.query(self).all()
+
+
 #contains the link table between players and ribbons
 player_ribbon_assoction = Table('hlstats_Players_Ribbons', 
                                 Base.metadata, 
                                 Column('playerId', Integer, ForeignKey('hlstats_Players.playerId')),
                                 Column('ribbonId', Integer, ForeignKey('hlstats_Ribbons.ribbonId')))
 
-class Player(Base):
+class Player(getAllMixin, Base):
     __tablename__ = 'hlstats_Players'
     
     playerId = Column(Integer, primary_key=True)
@@ -89,10 +93,22 @@ class Player(Base):
     player_game = relationship("Game", backref="hlstats_Players")
     player_clan  = relationship("Clan", backref="hlstats_Players")
     player_ribbons = relationship("Ribbon",secondary=player_ribbon_assoction, backref="players")
+
     
     def __repr__(self):
         return str(self.lastName)
     
+    def __gt__(self, other):
+        if isinstance(other, Player):
+            return self.skill > other.skill
+        else : 
+            return False
+        
+    def __lt__(self, other):
+        if isinstance(other, Player):
+            return self.skill < other.skill
+        else : 
+            return False 
 
 class Weapon(Base):
     __tablename__ = "hlstats_Weapons"
@@ -109,6 +125,18 @@ class Weapon(Base):
     
     def __repr__(self):
         return str(self.name)
+          
+    def __gt__(self, other):
+        if isinstance(other, Weapon):
+            return self.kills > other.kills
+        else :
+            return False
+        
+    def __lt__(self, other):
+        if isinstance(other, Weapon):
+            return self.kills < other.kills
+        else :
+            return False
 
 
 class Game(Base):
@@ -190,14 +218,3 @@ class Action(Base):
     
     def __repr__(self):
         return str(self.description)
-    
-
-
-
-
-    
-if test == True:
-    players = session.query(Player).all()
-    for player in players :
-        if player.player_clan is not None :
-            print (str(player.lastName) + " : " + str(player.player_ribbons))
