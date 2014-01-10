@@ -4,7 +4,7 @@ Created on 14 Dec 2013
 @author: george
 '''
 import wx 
-
+import Grid
 
 class WXFrame(wx.Frame):
 
@@ -43,10 +43,14 @@ class WXFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.onSettings, menuSettings)        
         self.Bind(wx.EVT_MENU, self.onToggleStatusBar, self.toggle_statusbar)
         
+        self.mypanel = self.addPanel()
         
         
         self.Show(True)
-        
+
+
+    def addPanel(self):
+        return wx.Panel(self)
         
     def open_connect(self, e):
         pass

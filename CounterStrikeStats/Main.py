@@ -8,18 +8,14 @@ try :
     from SQLAchemy import Player
     import wx
     import wx.grid as gridlib
+
 except ImportError as e : 
     raise e
 
 if __name__ == '__main__':
-    
-    try : 
-        app = wx.App(False)
- 
-          
-    except Exception as e  :
-        print(e)
-    
+
+    app = wx.App(False)
+
     try : 
         players = Player().getAll()
         playerattrs = ['lastName', 'kills', 'deaths']
@@ -28,8 +24,7 @@ if __name__ == '__main__':
         rows = len(players)
         
         frame = WXFrame(None,"CounterStrike Stats")
-        panel = wx.Panel(frame)
-        grid = gridlib.Grid(panel) 
+        grid = gridlib.Grid(frame.mypanel) 
         
         grid.CreateGrid(rows, columns)
         row=0
@@ -53,9 +48,9 @@ if __name__ == '__main__':
         showJustGrid(grid)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(grid,1)        
+        sizer.Add(grid, 1)        
         frame.SetSizer(sizer)
-        sizer.Fit(panel)
+        sizer.Fit(frame.mypanel)
        
 
 

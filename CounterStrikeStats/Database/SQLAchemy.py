@@ -198,6 +198,17 @@ class Ribbon(Base):
     def __repr__(self):
         return str(self.ribbonName)
 
+class Team(Base):
+    __tablename__ = "hlstats_Teams"
+    
+    teamId = Column(Integer, primary_key=True)
+    game = Column(String, ForeignKey('hlstats_Games.code'))
+    code = Column(String)
+    name = Column(String)
+    hidden = Column(Enum([0,1]))
+    
+    def __repr__(self):
+        return str(self.name)
 
 class Action(Base):
     __tablename__ = "hlstats_Actions"
