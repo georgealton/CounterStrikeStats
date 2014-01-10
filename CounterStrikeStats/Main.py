@@ -6,7 +6,7 @@ Created on 10 Dec 2013
 import MySQLdb
 try : 
     from MainFrame import WXFrame
-    from SQLAchemy import *
+    from SQLAchemy import Player
     import wx
     import wx.grid as gridlib
 
@@ -27,14 +27,14 @@ if __name__ == '__main__':
     try : 
         players = Player().getAll()
         print(players)
-        playerattrs = ['name', 'kills', 'deaths']
+        playerattrs = ['lastName', 'kills', 'deaths']
         
         columns = len(playerattrs)
-        rows = len(players.list)
+        rows = len(players)
         
         grid.CreateGrid(rows, columns)
         row=0
-        for player in players.list:
+        for player in players:
             for v in playerattrs:
                 column = playerattrs.index(v)
                 grid.SetCellValue(row, column, str(getattr(player, v)))

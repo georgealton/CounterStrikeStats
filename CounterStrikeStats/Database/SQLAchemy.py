@@ -41,19 +41,13 @@ except Exception as e:
     raise e
 
 
-class getAllMixin(object):
-    def getAll(self):
-        print(self)
-        return session.query(self).all()
-
-
 #contains the link table between players and ribbons
 player_ribbon_assoction = Table('hlstats_Players_Ribbons', 
                                 Base.metadata, 
                                 Column('playerId', Integer, ForeignKey('hlstats_Players.playerId')),
                                 Column('ribbonId', Integer, ForeignKey('hlstats_Ribbons.ribbonId')))
 
-class Player(getAllMixin, Base):
+class Player(Base):
     __tablename__ = 'hlstats_Players'
     
     playerId = Column(Integer, primary_key=True)
@@ -94,6 +88,9 @@ class Player(getAllMixin, Base):
     player_clan  = relationship("Clan", backref="hlstats_Players")
     player_ribbons = relationship("Ribbon",secondary=player_ribbon_assoction, backref="players")
 
+    @classmethod
+    def getAll(self):
+        return session.query(self).filter(self.hideranking != 1).order_by(self.skill.desc()).all()
     
     def __repr__(self):
         return str(self.lastName)
