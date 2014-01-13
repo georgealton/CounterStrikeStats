@@ -6,6 +6,8 @@ Created on 14 Dec 2013
 import wx 
 import Grids
 import Panels
+import Menus
+
 
 class WXFrame(wx.Frame):
 
@@ -15,7 +17,6 @@ class WXFrame(wx.Frame):
         '''
         
         wx.Frame.__init__(self, parent,id=wx.ID_ANY, title=title, size=(800,600))
-        
         self.sb = self.CreateStatusBar()
         
         # Setting up the filemenu.
@@ -51,7 +52,7 @@ class WXFrame(wx.Frame):
 
 
     def addPanel(self):
-        return wx.Panel(self)
+        return Panels.SimplePanel(self)
         
     def open_connect(self, e):
         pass
