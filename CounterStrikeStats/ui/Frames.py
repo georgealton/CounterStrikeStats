@@ -7,6 +7,7 @@ import wx
 import Grids
 import Panels
 import Menus
+from MenuBars import SimpleMenuBar
 
 
 class WXFrame(wx.Frame):
@@ -33,7 +34,7 @@ class WXFrame(wx.Frame):
         
         
         
-        menuBar = wx.MenuBar()
+        menuBar = SimpleMenuBar()
         menuBar.Append(filemenu,"&File") # Adding the "filemenu" to the MenuBar
         menuBar.Append(viewmenu, "&View")
         

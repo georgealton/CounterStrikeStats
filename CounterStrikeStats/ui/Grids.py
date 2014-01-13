@@ -19,7 +19,11 @@ class MainGrid(gridlib.Grid):
     '''
     classdocs
     '''
-    def __init__(self, parent): 
+    def __init__(self, parent):
+        gridlib.Grid.__init__(self, parent) 
+        
+        
+        
         self.showJustGrid()
         
            
