@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer, String, Enum, Float
-from dbsettings import *
+from dbsettings import DB_USER, DB_PASS, DB_URL
 
 try:
     engine = create_engine(

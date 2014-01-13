@@ -9,4 +9,5 @@ class SimplePanel(Panel):
     
     def __init__(self, parent):
         Panel.__init__(self, parent)
+        print("Creating a simple panel")
     
