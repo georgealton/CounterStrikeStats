@@ -5,6 +5,7 @@ Created on 10 Jan 2014
 '''
 
 import wx.grid as gridlib
+from SQLAchemy import Player
 
 class SimpleGridMixin(gridlib.Grid):
     def simplifyGrid(self):
@@ -21,5 +22,22 @@ class Main(SimpleGridMixin, gridlib.Grid):
     '''
     def __init__(self, parent):
         gridlib.Grid.__init__(self, parent) 
+        self.createPlayerGrid()
         self.simplifyGrid()
+    
+    ## Testing!
+    def createPlayerGrid(self):
+        players = Player().getAll()
         
+        playerattrs = ['lastName', 'kills', 'deaths']
+        columns = len(playerattrs)
+        rows = len(players)
+        self.CreateGrid(rows, columns)
+        row=0
+         
+        for player in players:
+            for v in playerattrs:
+                column = playerattrs.index(v)
+                self.SetCellValue(row, column, str(getattr(player, v)))
+                self.SetReadOnly(row, column, True)
+            row+=1

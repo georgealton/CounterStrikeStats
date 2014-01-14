@@ -36,12 +36,13 @@ class View(Menu):
         Menu.__init__(self)
 
         self.parentFrame = parentFrame
-        
         self.statusbartoggler = self.Append(ITEM_CHECK,'Show StatusBar', 'Show Statusbar', kind=ITEM_CHECK)
         self.Check(self.statusbartoggler.GetId(), True)
+        
+        self.Bind(EVT_MENU, self.onToggleStatusBar, self.statusbartoggler)
 
     def onToggleStatusBar(self,e):
-        if self.parentFrame.GetStatusBar().IsChecked():
+        if self.statusbartoggler.IsChecked():
             self.parentFrame.GetStatusBar().Show()
         else:
             self.parentFrame.GetStatusBar().Hide()
