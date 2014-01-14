@@ -6,8 +6,8 @@ Created on 10 Jan 2014
 
 import wx.grid as gridlib
 
-class SimpleGrid(gridlib.Grid):
-    def showJustGrid(self):
+class SimpleGridMixin(gridlib.Grid):
+    def simplifyGrid(self):
         self.DisableDragColSize()
         self.DisableDragCell()
         self.DisableDragRowSize()
@@ -15,22 +15,11 @@ class SimpleGrid(gridlib.Grid):
         self.SetRowLabelSize(0)
         self.SetColLabelSize(0)
 
-class MainGrid(gridlib.Grid):
+class Main(SimpleGridMixin, gridlib.Grid):
     '''
     classdocs
     '''
     def __init__(self, parent):
         gridlib.Grid.__init__(self, parent) 
+        self.simplifyGrid()
         
-        
-        
-        self.showJustGrid()
-        
-           
-    def showJustGrid(self):
-        self.DisableDragColSize()
-        self.DisableDragCell()
-        self.DisableDragRowSize()
-        self.DisableDragGridSize()
-        self.SetRowLabelSize(0)
-        self.SetColLabelSize(0)

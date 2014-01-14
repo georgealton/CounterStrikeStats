@@ -4,19 +4,12 @@ Created on 10 Jan 2014
 @author: george
 '''
 from wx import Panel
-from Grids import MainGrid
+import Grids
 
-class SimplePanel(Panel):
+class Main(Panel):
     
     def __init__(self, parent):
         Panel.__init__(self, parent)
         
         
-        grid = self.addGrid()
-        
-        
-    def addGrid(self):
-        return MainGrid(self)
-    
-    def getGrid(self):
-        return self.grid
+        self.grid = Grids.Main(self)

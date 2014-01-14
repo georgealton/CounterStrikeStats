@@ -5,6 +5,11 @@ Created on 13 Jan 2014
 '''
 from wx import MenuBar
 
-class SimpleMenuBar(MenuBar):
+import Menus
+
+class Main(MenuBar):
     def __init__(self):
         MenuBar.__init__(self)
+        
+        self.Append(Menus.File(self),"&File") # Adding the "filemenu" to the MenuBar
+        self.Append(Menus.View(self), "&View")

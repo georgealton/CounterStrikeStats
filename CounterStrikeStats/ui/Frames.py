@@ -6,8 +6,7 @@ Created on 14 Dec 2013
 import wx 
 import Grids
 import Panels
-import Menus
-from MenuBars import SimpleMenuBar
+import MenuBars
 
 
 class WXFrame(wx.Frame):
@@ -18,59 +17,8 @@ class WXFrame(wx.Frame):
         '''
         
         wx.Frame.__init__(self, parent,id=wx.ID_ANY, title=title, size=(800,600))
+        
         self.sb = self.CreateStatusBar()
-        
-        # Setting up the filemenu.
-        filemenu = wx.Menu()
-        menuSettings = filemenu.Append(wx.ID_PREFERENCES, "S&ettings", "Adjust Program Settings")
-        menuAbout = filemenu.Append(wx.ID_ABOUT, "&About"," Information about this program")
-        filemenu.AppendSeparator()
-        menuExit = filemenu.Append(wx.ID_EXIT,"E&xit"," Terminate the program")
-        
-        
-        viewmenu = wx.Menu()
-        self.toggle_statusbar = viewmenu.Append(wx.ITEM_CHECK,'Show StatusBar', 'Show Statusbar', kind=wx.ITEM_CHECK)
-        viewmenu.Check(self.toggle_statusbar.GetId(), True)
-        
-        
-        
-        menuBar = SimpleMenuBar()
-        menuBar.Append(filemenu,"&File") # Adding the "filemenu" to the MenuBar
-        menuBar.Append(viewmenu, "&View")
-        
-        self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
-        
-        #EVENT Handling
-        self.Bind(wx.EVT_MENU, self.onAbout, menuAbout)
-        self.Bind(wx.EVT_MENU, self.onExit, menuExit)
-        self.Bind(wx.EVT_MENU, self.onSettings, menuSettings)        
-        self.Bind(wx.EVT_MENU, self.onToggleStatusBar, self.toggle_statusbar)
-        
-        self.mypanel = self.addPanel()
-        
-        
+        self.SetMenuBar(MenuBars.Main())  # Adding the MenuBar to the Frame content.
+        self.mypanel = Panels.Main(self)
         self.Show(True)
-
-
-    def addPanel(self):
-        return Panels.SimplePanel(self)
-        
-    def open_connect(self, e):
-        pass
-    def close_connect(self, e):
-        pass
-    
-    def onAbout(self,e):
-        print self
-    
-    def onExit(self,e):
-        self.Close(True)
-    
-    def onSettings(self,e):
-        pass
-    
-    def onToggleStatusBar(self,e):
-        if self.toggle_statusbar.IsChecked():
-            self.sb.Show()
-        else:
-            self.sb.Hide()
