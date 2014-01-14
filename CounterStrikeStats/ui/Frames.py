@@ -18,9 +18,7 @@ class Main(Frame):
         Frame.__init__(self, parent,id=ID_ANY, title=title, size=(800,600))
         
         self.sb = self.CreateStatusBar()
-        
-        self.SetMenuBar(MenuBars.Main())  # Adding the MenuBar to the Frame content.
+        self.SetMenuBar(MenuBars.Main())
         self.mypanel = Panels.Main(self)
-        
         self.Centre()
         self.Show(True)
