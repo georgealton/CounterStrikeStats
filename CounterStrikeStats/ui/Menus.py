@@ -25,7 +25,7 @@ class File(Menu):
         print self
     
     def onExit(self,e):
-        self.parentFrame.Close(True)
+        self.parentFrame.GetFrame().Close(True)
     
     def onSettings(self,e):
         print self 
@@ -43,6 +43,6 @@ class View(Menu):
 
     def onToggleStatusBar(self,e):
         if self.statusbartoggler.IsChecked():
-            self.parentFrame.GetStatusBar().Show()
+            self.parentFrame.GetFrame().GetStatusBar().Show()
         else:
-            self.parentFrame.GetStatusBar().Hide()
+            self.parentFrame.GetFrame().GetStatusBar().Hide()
