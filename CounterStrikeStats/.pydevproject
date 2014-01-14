@@ -2,7 +2,6 @@
 <?eclipse-pydev version="1.0"?><pydev_project>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/CounterStrikeStats</path>
-<path>/CounterStrikeStats/HLObjects</path>
 <path>/CounterStrikeStats/Database</path>
 <path>/${PROJECT_DIR_NAME}/ui</path>
 </pydev_pathproperty>

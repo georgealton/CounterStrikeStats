@@ -32,10 +32,10 @@ class File(Menu):
 
 
 class View(Menu):
-    def __init__(self, parentFrame):
+    def __init__(self, parent):
         Menu.__init__(self)
 
-        self.parentFrame = parentFrame
+        self.parent = parent
         self.statusbartoggler = self.Append(ITEM_CHECK,'Show StatusBar', 'Show Statusbar', kind=ITEM_CHECK)
         self.Check(self.statusbartoggler.GetId(), True)
         
@@ -43,6 +43,6 @@ class View(Menu):
 
     def onToggleStatusBar(self,e):
         if self.statusbartoggler.IsChecked():
-            self.parentFrame.GetFrame().GetStatusBar().Show()
+            self.parent.GetFrame().GetStatusBar().Show()
         else:
-            self.parentFrame.GetFrame().GetStatusBar().Hide()
+            self.parent.GetFrame().GetStatusBar().Hide()
