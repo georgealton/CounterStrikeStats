@@ -11,5 +11,4 @@ class Main(Panel):
     def __init__(self, parent):
         Panel.__init__(self, parent)
         
-        
-        self.grid = Grids.Main(self)
+        self.grid = Grids.Main(self)        
