@@ -21,4 +21,6 @@ class Main(Frame):
         
         self.SetMenuBar(MenuBars.Main())  # Adding the MenuBar to the Frame content.
         self.mypanel = Panels.Main(self)
+        
+        self.Centre()
         self.Show(True)
