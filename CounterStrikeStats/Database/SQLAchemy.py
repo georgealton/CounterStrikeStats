@@ -12,13 +12,14 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer, String, Enum, Float
-from dbsettings import DB_USER, DB_PASS, DB_URL
+from dbsettings import DB_USER, DB_PASS, DB_ADDR, DB_NAME, DB_TYPE
 
 try:
+    print 'LOADED SQLALCHEMY'
     engine = create_engine(
-                "mysql://" + DB_USER + ":" + DB_PASS + '@' + DB_URL,
-                isolation_level="READ UNCOMMITTED"
-            )
+            DB_TYPE + "://" + DB_USER + ":" + DB_PASS + '@' + DB_ADDR + '/' + DB_NAME,
+            isolation_level="READ UNCOMMITTED"
+        )
     
     #engine.echo = True # Display the executed SQL
     metadata = MetaData(engine) #A table catalogue

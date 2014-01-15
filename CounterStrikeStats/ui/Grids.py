@@ -3,9 +3,8 @@ Created on 10 Jan 2014
 
 @author: george
 '''
-
-from wx.grid import Grid
 from SQLAchemy import Player
+from wx.grid import Grid
 
 class SimpleGridMixin(Grid):
     def simplifyGrid(self):
@@ -21,6 +20,8 @@ class Main(SimpleGridMixin, Grid):
     classdocs
     '''
     def __init__(self, parent):
+        
+
         Grid.__init__(self, parent) 
         self.createPlayerGrid()
         self.simplifyGrid()

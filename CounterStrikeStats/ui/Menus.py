@@ -3,7 +3,7 @@ Created on 13 Jan 2014
 
 @author: george
 '''
-from wx import Menu, ID_PREFERENCES, ID_ABOUT, ID_EXIT, EVT_MENU, ITEM_CHECK
+from wx import Menu, ID_PREFERENCES, ID_ABOUT, ID_EXIT, EVT_MENU, ITEM_CHECK, ID_NETWORK
 
 class File(Menu):
     
@@ -12,11 +12,13 @@ class File(Menu):
         
         self.parent = parent
         
+        self.connect = self.Append(ID_NETWORK, "C&onnect", "Open Connection To DB")   
         self.settings = self.Append(ID_PREFERENCES, "S&ettings", "Adjust Program Settings")   
         self.about = self.Append(ID_ABOUT, "&About"," Information about this program")
         self.AppendSeparator()
         self.exit = self.Append(ID_EXIT,"E&xit"," Terminate the program")
         
+        self.Bind(EVT_MENU, self.onConnect, self.connect)
         self.Bind(EVT_MENU, self.onSettings, self.settings)
         self.Bind(EVT_MENU, self.onAbout, self.about)
         self.Bind(EVT_MENU, self.onExit, self.exit)
@@ -29,6 +31,10 @@ class File(Menu):
     
     def onSettings(self,e):
         print self 
+    
+    def onConnect(self, e):
+        print 'Connection'
+        import SQLAchemy
 
 
 class View(Menu):
