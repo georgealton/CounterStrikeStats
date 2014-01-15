@@ -7,10 +7,10 @@ from wx import Menu, ID_PREFERENCES, ID_ABOUT, ID_EXIT, EVT_MENU, ITEM_CHECK
 
 class File(Menu):
     
-    def __init__(self, parentFrame):
+    def __init__(self, parent):
         Menu.__init__(self)
         
-        self.parentFrame = parentFrame
+        self.parent = parent
         
         self.settings = self.Append(ID_PREFERENCES, "S&ettings", "Adjust Program Settings")   
         self.about = self.Append(ID_ABOUT, "&About"," Information about this program")
@@ -25,7 +25,7 @@ class File(Menu):
         print self
     
     def onExit(self,e):
-        self.parentFrame.GetFrame().Close(True)
+        self.parent.GetFrame().Close(True)
     
     def onSettings(self,e):
         print self 

@@ -4,10 +4,10 @@ Created on 10 Jan 2014
 @author: george
 '''
 
-import wx.grid as gridlib
+from wx.grid import Grid
 from SQLAchemy import Player
 
-class SimpleGridMixin(gridlib.Grid):
+class SimpleGridMixin(Grid):
     def simplifyGrid(self):
         self.DisableDragColSize()
         self.DisableDragCell()
@@ -16,12 +16,12 @@ class SimpleGridMixin(gridlib.Grid):
         self.SetRowLabelSize(0)
         self.SetColLabelSize(0)
 
-class Main(SimpleGridMixin, gridlib.Grid):
+class Main(SimpleGridMixin, Grid):
     '''
     classdocs
     '''
     def __init__(self, parent):
-        gridlib.Grid.__init__(self, parent) 
+        Grid.__init__(self, parent) 
         self.createPlayerGrid()
         self.simplifyGrid()
     
