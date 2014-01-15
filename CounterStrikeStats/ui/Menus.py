@@ -14,7 +14,7 @@ class File(Menu):
         
         self.connect = self.Append(ID_NETWORK, "C&onnect", "Open Connection To DB")   
         self.settings = self.Append(ID_PREFERENCES, "S&ettings", "Adjust Program Settings")   
-        self.about = self.Append(ID_ABOUT, "&About"," Information about this program")
+        self.about = self.Append(ID_ABOUT, "&About","Information about this program")
         self.AppendSeparator()
         self.exit = self.Append(ID_EXIT,"E&xit"," Terminate the program")
         
@@ -34,8 +34,8 @@ class File(Menu):
     
     def onConnect(self, e):
         print 'Connection'
-        import SQLAchemy
-
+        # importing here will cause the module to load the connection
+        import SQLAlchemy
 
 class View(Menu):
     def __init__(self, parent):

@@ -3,7 +3,7 @@ Created on 10 Jan 2014
 
 @author: george
 '''
-from SQLAchemy import Player
+from SQLAlchemy import Player
 from wx.grid import Grid
 
 class SimpleGridMixin(Grid):
