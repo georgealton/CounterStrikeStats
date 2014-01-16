@@ -3,7 +3,7 @@ Created on 13 Jan 2014
 
 @author: george
 '''
-from wx import Menu, ID_PREFERENCES, ID_ABOUT, ID_EXIT, EVT_MENU, ITEM_CHECK, ID_NETWORK
+from wx import Menu, ID_PREFERENCES, ID_ABOUT, ID_EXIT, EVT_MENU, ITEM_CHECK, ID_HOME
 
 class File(Menu):
     
@@ -12,7 +12,7 @@ class File(Menu):
         
         self.parent = parent
         
-        self.connect = self.Append(ID_NETWORK, "C&onnect", "Open Connection To DB")   
+        self.connect = self.Append(ID_HOME, "C&onnect", "Open Connection To DB")   
         self.settings = self.Append(ID_PREFERENCES, "S&ettings", "Adjust Program Settings")   
         self.about = self.Append(ID_ABOUT, "&About","Information about this program")
         self.AppendSeparator()
